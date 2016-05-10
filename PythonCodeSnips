@@ -1,0 +1,8 @@
+import arcpy
+
+
+## #checking for null values
+fc = inFeature # feeature class containing the null values
+Row = # field containing the null values
+selection = arcpy.SelectLayerByAttribute_management(fc, "New_Selection", "Row is NULL") # selects the rows with null values
+arcpy.DeleteRows_management(fc) # deletes selected rows
