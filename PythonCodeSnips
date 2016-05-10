@@ -1,7 +1,17 @@
 import arcpy
 
+### use calculate values to get rid of null values
+#also read bottom of page: http://pro.arcgis.com/en/pro-app/tool-reference/data-management/calculate-field-examples.htm#ESRI_SECTION1_DFE39ACAD4144118AF066C6F2856197F
+#also this is worth the read: http://support.esri.com/de/knowledgebase/techarticles/detail/40913
+fc = "{path to geodatabase and feature class}"
+fieldList = arcpy.ListFields(fc, field_type="String") # don't want to try this on an integer
+for field in fieldList:
+    expression = """(!{}! or "").strip()""".format(field.name)
+    arcpy.CalculateField_management(fc, field.name, expression, "PYTHON_9.3")
 
-## #checking for null values
+
+
+### checking for null values
 fc = inFeature # feeature class containing the null values
 Row = # field containing the null values
 selection = arcpy.SelectLayerByAttribute_management(fc, "New_Selection", "Row is NULL") # selects the rows with null values
